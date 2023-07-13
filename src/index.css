@@ -1,0 +1,40 @@
+#root{
+  font-family: 'Pangolin', cursive;
+  color: antiquewhite;
+}
+body {
+    margin: 0 auto;
+    background-color: #212121;
+    background-image: url("https://e0.pxfuel.com/wallpapers/276/461/desktop-wallpaper-anime-girl-looking-at-sky-resolution-anime-and-background-clean-anime.jpg");
+    background-repeat: no-repeat;
+     background-size: cover;
+    background-position: center center;
+}
+
+  
+  .navbar {
+    /* background-image: url("https://e0.pxfuel.com/wallpapers/276/461/desktop-wallpaper-anime-girl-looking-at-sky-resolution-anime-and-background-clean-anime.jpg");
+    background-repeat: no-repeat;
+    background-size:cover;
+    padding: 1rem; 
+    background-position:top center; */
+
+  }
+  
+  .navbar-brand {
+    color: black; 
+  }
+  
+  .navbar-nav {
+    margin-left: auto;
+  }
+  
+  .nav-link {
+    color: black !important; 
+  }
+  
+  .container {
+    padding: 2rem; 
+    text-align: center; 
+  }
+  
