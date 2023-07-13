@@ -48,72 +48,71 @@ function NavBar() {
     <div className="navstyle">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container">
-          <Link className="navbar-brand" to="/">
-            <p>Anime Watch List</p>
-  <img
-    src="https://media.tenor.com/1vO9SJVU1U0AAAAM/nezuko-cham.gif"
-    alt="Logo"
-    style={{ height: "50px", marginRight: "10px" }}
-  />
-
-          </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            onClick={() => setIsNavOpen(!isNavOpen)}
-            aria-controls="navbarNav"
-            aria-expanded={isNavOpen}
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <Collapse in={isNavOpen} className="navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="/">
-                  Home
-                </Link>
-              </li>
-              {currentUser ? (
-                <>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/profile">
-                      Profile
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <button
-                      className="nav-link"
-                      onClick={handleSignOutFirebase}
-                    >
-                      Sign Out
-                    </button>
-                  </li>
-                </>
-              ) : (
-                <>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/signin">
-                      Sign In
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/signup">
-                      Sign Up
-                    </Link>
-                  </li>
-                </>
-              )}
-              <li className="nav-item">
-                <SearchBar />
-              </li>
-              <li></li>
-              <br></br>
-               <li className="nav-item">
-              <BackgroundMusic/>
-              </li> 
-            </ul>
-          </Collapse>
+          <div className="d-flex align-items-center">
+            <Link className="navbar-brand" to="/">
+              <p>Anime Watch List</p>
+              <img
+                src="https://media.tenor.com/1vO9SJVU1U0AAAAM/nezuko-cham.gif"
+                alt="Logo"
+                style={{ height: "50px", marginRight: "10px" }}
+              />
+            </Link>
+            <button
+              className="navbar-toggler"
+              type="button"
+              onClick={() => setIsNavOpen(!isNavOpen)}
+              aria-controls="navbarNav"
+              aria-expanded={isNavOpen}
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <Collapse in={isNavOpen} className="navbar-collapse" id="navbarNav">
+              <ul className="navbar-nav ml-auto">
+                <li className="nav-item">
+                  <Link className="nav-link" to="/">
+                    Home
+                  </Link>
+                </li>
+                {currentUser ? (
+                  <>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/profile">
+                        Profile
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <button
+                        className="nav-link"
+                        onClick={handleSignOutFirebase}
+                      >
+                        Sign Out
+                      </button>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/signin">
+                        Sign In
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/signup">
+                        Sign Up
+                      </Link>
+                    </li>
+                  </>
+                )}
+                <li className="nav-item">
+                  <SearchBar />
+                </li>
+              </ul>
+            </Collapse>
+          </div>
+          <div className="ml-auto">
+            <BackgroundMusic />
+          </div>
         </div>
       </nav>
     </div>
