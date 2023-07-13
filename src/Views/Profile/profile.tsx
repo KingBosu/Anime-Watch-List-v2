@@ -86,10 +86,10 @@ function Profile() {
   return (
     <div className="d-flex align-items-center justify-content-center flex-column">
       <h3>Current Watchlist</h3>
-      <div className="row">
+      <div className="row row-cols-5">
         {watchlist.length > 0 ? (
           watchlist.map((anime) => (
-            <div key={anime.id} className="col-md-2 mb-2">
+            <div key={anime.id} className="col mb-2">
               <div className="card">
                 <img
                   className="card-img-top"

@@ -6,7 +6,7 @@ import { doc, setDoc, getFirestore } from 'firebase/firestore';
 interface Anime {
   _id: string;
   title: string;
-  image: string
+  image: string;
   ranking: number;
   status: string;
   type: string;
@@ -24,7 +24,7 @@ function Results() {
   const [animeList, setAnimeList] = useState<Anime[]>([]);
   const [selectedAnime, setSelectedAnime] = useState<Anime | null>(null);
 
-  const [message, setMessage] =useState('');
+  const [message, setMessage] = useState('');
 
   const addToWatchList = async (anime: Anime) => {
     const user = auth.currentUser;
@@ -87,13 +87,13 @@ function Results() {
   return (
     <div>
       <br />
-      <h2>Results</h2>
+      <h2 className="text-center">Search Results</h2>
       <br />
       <br />
-      <div className="row">
+      <div className="row row-cols-5">
         {animeList.length > 0 ? (
           animeList.map((anime) => (
-            <div key={anime._id} className="col-md-2 mb-2">
+            <div key={anime._id} className="col mb-2">
               <div className="card">
                 <img className="card-img-top" src={anime.image} alt={anime.title} />
                 <div className="card-body">
