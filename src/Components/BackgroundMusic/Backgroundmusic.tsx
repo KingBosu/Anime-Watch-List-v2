@@ -1,20 +1,42 @@
-import { useEffect } from 'react';
-
-function BackgroundMusic() {
+import { useEffect, useState } from 'react';
+ 
+export function BackgroundMusic() {
+ 
+  // use Audio constructor to create HTMLAudioElement
+  const audioTune = new Audio('../../../public/Epona - Misty.mp3');
+ 
+  // variable to play audio in loop
+  const [playInLoop, setPlayInLoop] = useState(true);
+ 
+  // load audio file on component load
   useEffect(() => {
-    const audio = new Audio('.src\Components\BackgroundMusic\Epona - Misty.mp3');
-    audio.volume = 0.5; // Adjust the volume as needed
-    audio.loop = true; // Enable looping
-    audio.play();
+    audioTune.load();
+  }, [])
+ 
+  // set the loop of audio tune
+  useEffect(() => {
+    audioTune.loop = playInLoop;
+  }, [playInLoop])
+ 
+   // play audio sound
+   const playSound = () => {
+    audioTune.play();
+  }
+ 
+  // pause audio sound
+  const pauseSound = () => {
+    audioTune.pause();
+  }
+ 
+ 
+  return (
+    <div>
+     
 
-    return () => {
-      // Clean up the audio element when the component unmounts
-      audio.pause();
-      audio.src = '';
-    };
-  }, []);
-
-  return null;
+      <input type="button" className="btn btn-primary mr-2" value="Play" onClick={playSound}></input>
+      <input type="button" className="btn btn-warning mr-2" value="Pause" onClick={pauseSound}></input>
+ 
+      <label><input type="checkbox" checked={playInLoop} onChange={e => setPlayInLoop(e.target.checked)} /> Play in Loop</label>
+    </div>
+  );
 }
-
-export default BackgroundMusic;

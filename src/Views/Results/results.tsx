@@ -24,6 +24,8 @@ function Results() {
   const [animeList, setAnimeList] = useState<Anime[]>([]);
   const [selectedAnime, setSelectedAnime] = useState<Anime | null>(null);
 
+  const [message, setMessage] =useState('');
+
   const addToWatchList = async (anime: Anime) => {
     const user = auth.currentUser;
     if (user) {
@@ -31,12 +33,18 @@ function Results() {
       try {
         await setDoc(doc(db, 'users', user.uid, 'watchlist', anime._id), anime);
         console.log('Anime added to watchlist:', anime.title);
+        setMessage(`Successfully added to watch list`);
       } catch (error) {
         console.error('Error adding anime to watchlist:', error);
+        setMessage('Error Adding to Watchlist Please try Again')
       }
     } else {
       console.log('User not logged in');
+      setMessage('Log in or Sign up to add to Watchlist');
     }
+    setTimeout(() => {
+      setMessage('');
+    }, 2000);
   };
 
   const handleShowSummary = (anime: Anime) => {
@@ -85,7 +93,7 @@ function Results() {
       <div className="row">
         {animeList.length > 0 ? (
           animeList.map((anime) => (
-            <div key={anime._id} className="col-md-3 mb-3">
+            <div key={anime._id} className="col-md-2 mb-2">
               <div className="card">
                 <img className="card-img-top" src={anime.image} alt={anime.title} />
                 <div className="card-body">
@@ -108,6 +116,7 @@ function Results() {
                   )}
                   <button className="btn btn-primary" onClick={() => addToWatchList(anime)}>
                     Add to List
+                    {message && <p style={{ fontWeight: "bold" }}>{message}</p>}
                   </button>
                 </div>
               </div>
@@ -117,9 +126,6 @@ function Results() {
           <p>No results found</p>
         )}
       </div>
-      <button className="btn btn-primary" onClick={() => console.log('Button clicked!')}>
-        Click Me
-      </button>
     </div>
   );
 }

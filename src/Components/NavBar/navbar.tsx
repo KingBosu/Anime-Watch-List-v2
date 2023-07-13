@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { auth } from "../../firebase";
 import { getAuth, signOut } from "firebase/auth";
 import SearchBar from "../SearchBar/searchbar";
+import { BackgroundMusic } from "../BackgroundMusic/Backgroundmusic";
 import { Button, Collapse } from "react-bootstrap";
 
 interface User {
@@ -106,6 +107,11 @@ function NavBar() {
               <li className="nav-item">
                 <SearchBar />
               </li>
+              <li></li>
+              <br></br>
+               <li className="nav-item">
+              <BackgroundMusic/>
+              </li> 
             </ul>
           </Collapse>
         </div>

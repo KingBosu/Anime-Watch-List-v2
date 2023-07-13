@@ -3,6 +3,7 @@ import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { auth } from "../../firebase";
 import { Carousel } from "react-bootstrap";
 
+
 interface Anime {
   _id: string;
   title: string;
@@ -10,6 +11,7 @@ interface Anime {
 }
 
 export default function Home() {
+
   const [animeList, setAnimeList] = useState<Anime[]>([]);
 
   async function fetchAnimeData() {
@@ -32,6 +34,9 @@ export default function Home() {
     }
   }
 
+  const [message, setMessage] = useState('');
+
+
   const addToWatchList = async (anime: Anime) => {
     const user = auth.currentUser;
     if (user) {
@@ -42,16 +47,20 @@ export default function Home() {
           anime
         );
         console.log("Anime added to watchlist:", anime.title);
-        // NotificationManager.success("Added anime to watchlist")
+        setMessage('Added to Watchlist')  
       } catch (error) {
         console.error("Error adding anime to watchlist:", error);
-        // NotificationManager.error("Error adding anime to watchlist:");
+        setMessage('Error adding anime to watchlist:')
       }
     } else {
       console.log("User not logged in");
-      // NotificationManager.error("You need to log in to add to your watchlist")
+      setMessage('Sign in to Add to your watchlist')
     }
+    setTimeout(() => {
+      setMessage('');
+    }, 2000);
   };
+
 
   useEffect(() => {
     fetchAnimeData();
@@ -95,6 +104,7 @@ export default function Home() {
                 >
                   Add to List
                 </button>
+                {message && <p style={{ fontWeight: "bold" }}>{message}</p>}
                 <br></br>
                 <br></br>
               </div>

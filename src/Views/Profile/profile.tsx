@@ -1,15 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import {
   getFirestore,
   collection,
   query,
-  where,
   getDocs,
   doc,
   deleteDoc,
   setDoc,
-} from 'firebase/firestore';
-import { auth } from '../../firebase';
+} from "firebase/firestore";
+import { auth } from "../../firebase";
 
 interface Anime {
   id: string;
@@ -18,19 +17,23 @@ interface Anime {
   type: string;
   episodes: number;
   synopsis: string;
-  currentEpisode: number; // New property for tracking current episode
+  currentEpisode: number;
 }
 
 function Profile() {
   const [watchlist, setWatchlist] = useState<Anime[]>([]);
-  const [expandedSynopsisId, setExpandedSynopsisId] = useState<string | null>(null);
+  const [expandedSynopsisId, setExpandedSynopsisId] = useState<string | null>(
+    null
+  );
 
   useEffect(() => {
     const fetchWatchlist = async () => {
       try {
         const firestoreInstance = getFirestore();
         const user = auth.currentUser;
-        const q = query(collection(firestoreInstance, 'users', user.uid, 'watchlist'));
+        const q = query(
+          collection(firestoreInstance, "users", user.uid, "watchlist")
+        );
         const querySnapshot = await getDocs(q);
         const data = querySnapshot.docs.map((doc) => ({
           id: doc.id,
@@ -49,9 +52,11 @@ function Profile() {
     try {
       const firestoreInstance = getFirestore();
       const user = auth.currentUser;
-      const docRef = doc(firestoreInstance, 'users', user.uid, 'watchlist', id);
+      const docRef = doc(firestoreInstance, "users", user.uid, "watchlist", id);
       await deleteDoc(docRef);
-      setWatchlist((prevWatchlist) => prevWatchlist.filter((item) => item.id !== id));
+      setWatchlist((prevWatchlist) =>
+        prevWatchlist.filter((item) => item.id !== id)
+      );
     } catch (error) {
       console.error(error);
     }
@@ -65,11 +70,13 @@ function Profile() {
     try {
       const firestoreInstance = getFirestore();
       const user = auth.currentUser;
-      const docRef = doc(firestoreInstance, 'users', user.uid, 'watchlist', id);
+      const docRef = doc(firestoreInstance, "users", user.uid, "watchlist", id);
       await setDoc(docRef, { currentEpisode: newEpisode }, { merge: true });
 
       setWatchlist((prevWatchlist) =>
-        prevWatchlist.map((item) => (item.id === id ? { ...item, currentEpisode: newEpisode } : item))
+        prevWatchlist.map((item) =>
+          item.id === id ? { ...item, currentEpisode: newEpisode } : item
+        )
       );
     } catch (error) {
       console.error(error);
@@ -82,22 +89,28 @@ function Profile() {
       <div className="row">
         {watchlist.length > 0 ? (
           watchlist.map((anime) => (
-            <div key={anime.id} className="col-md-4 mb-4">
+            <div key={anime.id} className="col-md-2 mb-2">
               <div className="card">
-                <img className="card-img-top" src={anime.image} alt={anime.title} />
+                <img
+                  className="card-img-top"
+                  src={anime.image}
+                  alt={anime.title}
+                />
                 <div className="card-body">
                   <h5 className="card-title">{anime.title}</h5>
                   <p className="card-text">Status: {anime.status}</p>
                   <p className="card-text">Type: {anime.type}</p>
                   <p className="card-text">Episodes: {anime.episodes}</p>
                   <p className="card-text">
-                    {expandedSynopsisId === anime.id ? anime.synopsis : ''}
+                    {expandedSynopsisId === anime.id ? anime.synopsis : ""}
                   </p>
                   <button
                     className="btn btn-primary"
                     onClick={() => handleSynopsisToggle(anime.id)}
                   >
-                    {expandedSynopsisId === anime.id ? 'Hide Summary' : 'Summary'}
+                    {expandedSynopsisId === anime.id
+                      ? "Hide Summary"
+                      : "Summary"}
                   </button>
                   <div className="d-flex align-items-center">
                     <label htmlFor={`episode-${anime.id}`} className="me-2">
@@ -109,8 +122,10 @@ function Profile() {
                       className="form-control"
                       min={1}
                       max={anime.episodes}
-                      value={anime.currentEpisode || ''}
-                      onChange={(e) => handleEpisodeChange(anime.id, Number(e.target.value))}
+                      value={anime.currentEpisode || ""}
+                      onChange={(e) =>
+                        handleEpisodeChange(anime.id, Number(e.target.value))
+                      }
                     />
                   </div>
                   <button

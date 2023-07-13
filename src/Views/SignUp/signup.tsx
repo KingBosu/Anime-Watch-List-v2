@@ -61,6 +61,7 @@ export default function SignUp() {
                     setEmail(event.target.value);
                   }}
                   value={email}
+                  InputProps={{sx: {background:"pink"}}}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -76,7 +77,7 @@ export default function SignUp() {
                     setPassword(event.target.value);
                   }}
                   value={password}
-                  InputProps={{ sx: { background: "transparent" } }} 
+                  InputProps={{ sx: { background: "pink" } }} 
                    sx={{ marginBottom: "1.5rem" }}
                   
                 />
@@ -100,6 +101,8 @@ export default function SignUp() {
           </Box>
         </Box>
       </Container>
+      <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+      {/* Temp fix for sizing */}
     </ThemeProvider>
   );
 }

@@ -21,6 +21,7 @@ export default function Login({ setIsUserSignedIn }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [message, setMessage] = useState("");
 
   const handleSignInWithGoogle = () => {
     const authInstance = getAuth();
@@ -30,10 +31,12 @@ export default function Login({ setIsUserSignedIn }) {
       .then((result) => {
         const user = result.user;
         setIsUserSignedIn(true);
+        setMessage("Successfully Signed in");
         navigate("/");
       })
       .catch((error) => {
         console.error("Sign in with Google error:", error);
+        setMessage("Google sign in Error");
       });
   };
 
@@ -43,11 +46,16 @@ export default function Login({ setIsUserSignedIn }) {
       .then((userCredential) => {
         const user = userCredential.user;
         setIsUserSignedIn(true);
+        setMessage("Successfully Signed in!");
         navigate("/");
       })
       .catch((error) => {
         console.error("Sign in error:", error);
+        setMessage("Error signing in");
       });
+      setTimeout(() => {
+        setMessage('');
+      }, 2000);
   };
 
   return (
@@ -72,16 +80,16 @@ export default function Login({ setIsUserSignedIn }) {
           }}
         />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-  <Box
-    sx={{
-      my: 8,
-      mx: 4,
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.1)",
-    }}
-  >
+          <Box
+            sx={{
+              my: 8,
+              mx: 4,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.1)",
+            }}
+          >
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
@@ -135,6 +143,9 @@ export default function Login({ setIsUserSignedIn }) {
               >
                 Sign In with Google
               </Button>
+
+              {message && <p style={{ fontWeight: "bold" }}>{message}</p>}
+
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">
@@ -147,7 +158,7 @@ export default function Login({ setIsUserSignedIn }) {
                   </Link>
                 </Grid>
               </Grid>
-            </Box>
+            </Box> 
           </Box>
         </Grid>
       </Grid>
